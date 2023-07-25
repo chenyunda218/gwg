@@ -174,7 +174,11 @@ func (p Property) String() string {
 			tags = append(tags, t.String())
 		}
 	}
-	return fmt.Sprintf("%s %s %s", p.Label, p.Type, strings.Join(tags, " "))
+	var tag string
+	if len(tags) > 0 {
+		tag = "`" + strings.Join(tags, " ") + "`"
+	}
+	return fmt.Sprintf("%s %s %s", p.Label, p.Type, tag)
 }
 
 type Func struct {

@@ -66,6 +66,7 @@ func TestStruct(t *testing.T) {
 		Title:  "AccountType",
 		Values: []string{"ROOT", "ADMIN", "USER"},
 	}
+	p.AddCode(s)
 	p.AddCode(e)
 	p.Wirte("./test")
 }
