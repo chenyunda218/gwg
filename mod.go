@@ -284,3 +284,25 @@ type Line struct {
 func (l Line) String() string {
 	return l.Content
 }
+
+type Enums struct {
+	Title  string
+	Values []string
+}
+
+func (e *Enums) Add(values ...string) Enums {
+	e.Values = append(e.Values, values...)
+	return *e
+}
+
+func (e Enums) String() (c string) {
+	c = fmt.Sprintf("type %s string\n", e.Title)
+	for _, v := range e.Values {
+		c += fmt.Sprintf("const %s %s = \"%s\"\n", v, e.Title, v)
+	}
+	return c
+}
+
+type Good string
+
+const HELLO Good = "HELLO"

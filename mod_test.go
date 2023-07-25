@@ -62,5 +62,10 @@ func TestStruct(t *testing.T) {
 	})
 	p.AddCode(f)
 	p.AddCode(inter)
+	e := Enums{
+		Title:  "AccountType",
+		Values: []string{"ROOT", "ADMIN", "USER"},
+	}
+	p.AddCode(e)
 	p.Wirte("./test")
 }
