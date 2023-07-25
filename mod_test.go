@@ -53,6 +53,14 @@ func TestStruct(t *testing.T) {
 		Name: "model",
 	}
 	p.AddImport(i)
+	inter := Interface{
+		Name: "AccountApiInterface",
+	}
+	inter.AddMethod(Method{
+		Name:       "CreateAccount",
+		Parameters: Parameters{[]Pair{{Left: "good", Right: "int"}}},
+	})
 	p.AddCode(f)
+	p.AddCode(inter)
 	p.Wirte("./test")
 }

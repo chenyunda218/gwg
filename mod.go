@@ -23,6 +23,25 @@ type Package struct {
 	Codes   []Code
 }
 
+type Interface struct {
+	Name    string
+	Methods []Method
+}
+
+func (i Interface) String() (c string) {
+	c = fmt.Sprintf("type %s interface {\n", i.Name)
+	for _, m := range i.Methods {
+		c += fmt.Sprintf("%s\n", m.Prototype())
+	}
+	c += "}\n"
+	return c
+}
+
+func (i *Interface) AddMethod(ms ...Method) Interface {
+	i.Methods = append(i.Methods, ms...)
+	return *i
+}
+
 func (p Package) Wirte(path string) {
 	os.MkdirAll(path, os.ModePerm)
 	f, _ := os.Create(fmt.Sprintf("%s/%s.go", path, p.Name))
@@ -207,6 +226,14 @@ type Method struct {
 	Struct     *Struct
 	Parameters Parameters
 	Outputs    Outputs
+}
+
+func (m *Method) Prototype() string {
+	var outputs string
+	if len(m.Outputs.Pairs) != 0 {
+		outputs = " (" + m.Outputs.String() + ")"
+	}
+	return fmt.Sprintf("%s(%s)%s", m.Name, m.Parameters.String(), outputs)
 }
 
 type Struct struct {
